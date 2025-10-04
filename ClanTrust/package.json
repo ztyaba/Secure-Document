@@ -4,16 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
-    "start": "next start -p $PORT",
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev --name init",
     "db:deploy": "prisma migrate deploy",
-    "db:seed": "node prisma/seed.cjs"
-  },
-  "engines": {
-    "node": "20.x"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
@@ -69,4 +63,3 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
-}
