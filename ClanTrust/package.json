@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "db:migrate": "prisma migrate dev --name init"
+    "postinstall": "prisma generate"
 
   },
   "dependencies": {
