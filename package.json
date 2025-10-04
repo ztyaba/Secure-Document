@@ -1,0 +1,9 @@
+{
+  "name": "secure-document",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm --prefix ClanTrust ci --no-audit --no-fund",
+    "build": "npm --prefix ClanTrust run build",
+    "start": "npm --prefix ClanTrust run start"
+  }
+}
