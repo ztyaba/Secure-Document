@@ -30,6 +30,7 @@ model User {
   profile   Profile?
   documents Document[] @relation("DocumentOwner")
   consents  Consent[]
+  dataExportRequests DataExportRequest[]
 }
 
 model Profile {
