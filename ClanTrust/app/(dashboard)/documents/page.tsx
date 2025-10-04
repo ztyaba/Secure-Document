@@ -3,7 +3,9 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { DocumentList } from '@/components/document-list';
 import { RoleGate } from '@/components/role-gate';
-import { getTranslations } from '@/lib/i18n';
+import { getTranslations, toLocaleKey } from '@/lib/i18n';
+
+export const runtime = 'nodejs';
 
 export default async function DocumentsPage() {
   const user = await currentUser();
@@ -23,7 +25,8 @@ export default async function DocumentsPage() {
     orderBy: { createdAt: 'desc' }
   });
 
-  const t = await getTranslations(profile?.language ?? 'en');
+  const locale = toLocaleKey(profile?.language);
+  const t = await getTranslations(locale);
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-10">
