@@ -3,6 +3,9 @@ services:
     name: clantrust
     env: node
     rootDir: ClanTrust
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    postDeployCommand: npm run db:deploy
     buildCommand: npm --prefix ClanTrust ci && npm --prefix ClanTrust run build
     startCommand: npm --prefix ClanTrust run start
     postDeployCommand: npm --prefix ClanTrust run db:deploy

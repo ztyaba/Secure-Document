@@ -2,6 +2,9 @@
   "name": "secure-document",
   "private": true,
   "scripts": {
+    "postinstall": "cd ClanTrust && npm ci --no-audit --no-fund",
+    "build": "cd ClanTrust && npm run build",
+    "start": "cd ClanTrust && npm run start"
 
   }
 }
