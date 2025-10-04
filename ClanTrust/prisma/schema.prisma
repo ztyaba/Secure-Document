@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  client
+  paralegal
+  notary
+}
+
+enum SignatureStatus {
+  draft
+  pending
+  signed
+  deleted
+}
+
+model User {
+  id        String   @id
+  email     String?
+  role      Role     @default(client)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  profile   Profile?
+  documents Document[] @relation("DocumentOwner")
+  consents  Consent[]
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  name      String
+  phone     String
+  clan      String
+  language  String   @default("en")
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Document {
+  id              String           @id @default(cuid())
+  ownerUserId     String
+  driveFileId     String
+  filename        String
+  signatureStatus SignatureStatus  @default(draft)
+  signatureUrl    String?
+  checksum        String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  owner           User             @relation("DocumentOwner", fields: [ownerUserId], references: [id])
+  auditLogs       AuditLog[]
+  consents        Consent[]
+  retentionPolicy RetentionPolicy?
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  resourceId String?
+  ipAddress  String?
+  metadata   String?
+  createdAt  DateTime @default(now())
+  document   Document? @relation(fields: [resourceId], references: [id])
+}
+
+model Consent {
+  id          String   @id @default(cuid())
+  userId      String
+  documentId  String
+  consentHash String
+  consentedAt DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  document    Document @relation(fields: [documentId], references: [id])
+
+  @@unique([documentId, userId], name: "documentId_userId")
+}
+
+model RetentionPolicy {
+  id          String    @id @default(cuid())
+  documentId  String    @unique
+  retentionFor Int      @default(365)
+  expiresAt   DateTime
+  document    Document  @relation(fields: [documentId], references: [id])
+}
+
+model DataExportRequest {
+  id        String   @id @default(cuid())
+  userId    String
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+  user      User     @relation(fields: [userId], references: [id])
+}
