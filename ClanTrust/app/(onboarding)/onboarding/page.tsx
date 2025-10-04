@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { clans } from '@/lib/constants';
 import { useI18n } from '@/components/i18n-provider';
+import { toLocaleKey } from '@/lib/i18n';
 import { ConsentCapture } from '@/components/consent-capture';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -63,7 +64,7 @@ export default function OnboardingPage() {
 
   const onSelectLanguage = (value: string) => {
     form.setValue('language', value);
-    setLocale(value);
+    setLocale(toLocaleKey(value));
   };
 
   const stepContent: Record<Step, React.ReactNode> = {

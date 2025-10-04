@@ -4,5 +4,5 @@ services:
     env: node
     rootDir: ClanTrust
     buildCommand: npm ci && npm run build
-    startCommand: npm start
-    postDeployCommand: npx prisma migrate deploy
+    startCommand: npm run start
+    postDeployCommand: npm run db:deploy
