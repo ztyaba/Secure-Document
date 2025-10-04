@@ -8,6 +8,7 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev --name init",
     "db:deploy": "prisma migrate deploy",
+    "build": "next build"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
