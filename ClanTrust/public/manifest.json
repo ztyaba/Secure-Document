@@ -1,0 +1,17 @@
+{
+  "name": "ClanTrust",
+  "short_name": "ClanTrust",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "description": "Secure wills & trusts portal for Ugandan clans.",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
